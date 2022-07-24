@@ -1,0 +1,35 @@
+CREATE DATABASE bd_naves_espaciales; 
+USE bd_naves_espaciales;
+CREATE TABLE tbl_naves (
+id_nave INT PRIMARY KEY,
+nombre_nave VARCHAR(30) NOT NULL,
+pais_fabricacion VARCHAR(50) NOT NULL,
+tiempo_ini_actividad varchar(10) NOT NULL,
+tiempo_fin_actividad VARCHAR(10) NOT NULL,
+peso FLOAT NOT NULL,
+empuje FLOAT NOT NULL,
+tipo_combustible VARCHAR(30) NOT NULL
+);
+CREATE TABLE  tbl_lanzaderas (
+id_lanzadera INT PRIMARY KEY AUTO_INCREMENT,
+tipo_carga_util VARCHAR(50),
+max_peso_carga VARCHAR (10),
+cod_nave INT NOT NULL 
+);
+CREATE TABLE tbl_no_tripuladas(
+id_no_tripulada INT PRIMARY KEY AUTO_INCREMENT, 
+funcion VARCHAR (100) NOT NULL,
+ubicacion VARCHAR (50) NOT NULL,
+cod_nave INT NOT NULL
+);
+CREATE TABLE tbl_tripuladas(
+id_tripulada INT PRIMARY KEY AUTO_INCREMENT,
+funcion VARCHAR (50) NOT NULL,
+cantidad_tripulantes INT NOT NULL,
+distancia_orbita FLOAT NOT NULL,
+cod_nave INT NOT NULL 
+);
+
+ALTER TABLE tbl_lanzaderas ADD FOREIGN KEY (cod_nave) REFERENCES tbl_naves(id_nave) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE tbl_no_tripuladas ADD FOREIGN KEY (cod_nave) REFERENCES tbl_naves(id_nave) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE tbl_tripuladas ADD FOREIGN KEY (cod_nave) REFERENCES tbl_naves(id_nave) ON UPDATE CASCADE ON DELETE CASCADE;
